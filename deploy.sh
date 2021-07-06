@@ -85,7 +85,7 @@ docker run -d \
     --env RESET_PASSWORD_URL=$RESET_PASSWORD_URL \
     --env AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
     --env AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-    --env AWS_S3_BUCKET_NAME=S3_BUCKET_NAME \
+    --env AWS_S3_BUCKET_NAME=$S3_BUCKET_NAME \
     --env WEBSOCKET_PORT=$WEBSOCKET_PORT \
     --name php_editor php_editor
 
@@ -104,7 +104,7 @@ docker run -d \
     --env RESET_PASSWORD_URL=$RESET_PASSWORD_URL \
     --env AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
     --env AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-    --env AWS_S3_BUCKET_NAME=S3_BUCKET_NAME \
+    --env AWS_S3_BUCKET_NAME=$S3_BUCKET_NAME \
     --env WEBSOCKET_PORT=$WEBSOCKET_PORT \
     messenger_editor php /var/www/html/bin/console messenger:consume async --time-limit=3600
 
@@ -120,7 +120,7 @@ docker run -d \
     --env RESET_PASSWORD_URL=$RESET_PASSWORD_URL \
     --env AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
     --env AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-    --env AWS_S3_BUCKET_NAME=S3_BUCKET_NAME \
+    --env AWS_S3_BUCKET_NAME=$S3_BUCKET_NAME \
     --env WEBSOCKET_PORT=$WEBSOCKET_PORT \
     --name websocket_editor \
     websocket_editor php /var/www/html/bin/console app:start-websocket
