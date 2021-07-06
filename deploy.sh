@@ -17,6 +17,7 @@ JWT_PASSPHRASE=$(aws ssm get-parameters --name JWT_PASSPHRASE --region eu-centra
 AWS_ACCESS_KEY_ID=$(aws ssm get-parameters --name _AWS_ACCESS_KEY_ID --region eu-central-1 --output text --query Parameters[].Value)
 AWS_SECRET_ACCESS_KEY=$(aws ssm get-parameters --name _AWS_SECRET_ACCESS_KEY --region eu-central-1 --with-decryption --output text --query Parameters[].Value)
 WEBSOCKET_PORT=$(aws ssm get-parameters --name WEBSOCKET_PORT --region eu-central-1 --output text --query Parameters[].Value)
+S3_BUCKET_NAME=$(aws ssm get-parameters --name S3_BUCKET_NAME --region eu-central-1 --output text --query Parameters[].Value)
 
 MESSENGER_TRANSPORT_DSN=${MESSENGER_URL}?access_key=${MESSENGER_ACCESS_KEY}"&"secret_key=${MESSENGER_SECRET_KEY}
 DATABASE_URL=mysql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}
@@ -75,7 +76,8 @@ echo -e '\033[42m[Run->]\033[0m Run php container'
 docker run -d \
     --network=editor \
     --restart=always \
-	--env HOST=https://$HOST_API \
+    --env APP_ENV=prod \
+    --env HOST=https://$HOST_API \
     --env DATABASE_URL=$DATABASE_URL \
     --env MESSENGER_TRANSPORT_DSN=$MESSENGER_TRANSPORT_DSN \
     --env MAILER_DSN=$MAILER_DSN \
@@ -84,6 +86,7 @@ docker run -d \
     --env RESET_PASSWORD_URL=$RESET_PASSWORD_URL \
     --env AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
     --env AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+    --env AWS_S3_BUCKET_NAME=S3_BUCKET_NAME \
     --env WEBSOCKET_PORT=$WEBSOCKET_PORT \
     --name php_editor php_editor
 
@@ -94,6 +97,7 @@ echo -e '\033[42m[Run->]\033[0m Run messenger container'
 docker run -d \
     --network=editor \
     --restart=always \
+    --env APP_ENV=prod \
     --env DATABASE_URL=$DATABASE_URL \
     --env MESSENGER_TRANSPORT_DSN=$MESSENGER_TRANSPORT_DSN \
     --env MAILER_DSN=$MAILER_DSN \
@@ -102,6 +106,7 @@ docker run -d \
     --env RESET_PASSWORD_URL=$RESET_PASSWORD_URL \
     --env AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
     --env AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+    --env AWS_S3_BUCKET_NAME=S3_BUCKET_NAME \
     --env WEBSOCKET_PORT=$WEBSOCKET_PORT \
     messenger_editor php /var/www/html/bin/console messenger:consume async --time-limit=3600
 
@@ -109,7 +114,8 @@ echo -e '\033[42m[Run->]\033[0m Run websocket container'
 docker run -d \
     --network=editor \
     --restart=always \
-	--env DATABASE_URL=$DATABASE_URL \
+    --env APP_ENV=prod \
+    --env DATABASE_URL=$DATABASE_URL \
     --env MESSENGER_TRANSPORT_DSN=$MESSENGER_TRANSPORT_DSN \
     --env MAILER_DSN=$MAILER_DSN \
     --env MAIN_SITE_URL=$MAIN_SITE_URL \
@@ -117,6 +123,7 @@ docker run -d \
     --env RESET_PASSWORD_URL=$RESET_PASSWORD_URL \
     --env AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
     --env AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+    --env AWS_S3_BUCKET_NAME=S3_BUCKET_NAME \
     --env WEBSOCKET_PORT=$WEBSOCKET_PORT \
     --name websocket_editor \
     websocket_editor php /var/www/html/bin/console app:start-websocket
