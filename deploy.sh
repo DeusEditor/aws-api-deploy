@@ -76,7 +76,6 @@ echo -e '\033[42m[Run->]\033[0m Run php container'
 docker run -d \
     --network=editor \
     --restart=always \
-    --env APP_ENV=prod \
     --env HOST=https://$HOST_API \
     --env DATABASE_URL=$DATABASE_URL \
     --env MESSENGER_TRANSPORT_DSN=$MESSENGER_TRANSPORT_DSN \
@@ -97,7 +96,6 @@ echo -e '\033[42m[Run->]\033[0m Run messenger container'
 docker run -d \
     --network=editor \
     --restart=always \
-    --env APP_ENV=prod \
     --env DATABASE_URL=$DATABASE_URL \
     --env MESSENGER_TRANSPORT_DSN=$MESSENGER_TRANSPORT_DSN \
     --env MAILER_DSN=$MAILER_DSN \
@@ -114,7 +112,6 @@ echo -e '\033[42m[Run->]\033[0m Run websocket container'
 docker run -d \
     --network=editor \
     --restart=always \
-    --env APP_ENV=prod \
     --env DATABASE_URL=$DATABASE_URL \
     --env MESSENGER_TRANSPORT_DSN=$MESSENGER_TRANSPORT_DSN \
     --env MAILER_DSN=$MAILER_DSN \
