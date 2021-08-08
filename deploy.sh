@@ -33,6 +33,12 @@ cd ${WORKDIR}
 echo -e '\033[42m[Run->]\033[0m yum update'
 yum update -y
 
+echo -e '\033[42m[Run->]\033[0m Make swap'
+dd if=/dev/zero of=/swapfile bs=128M count=16
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+
 echo -e '\033[42m[Run->]\033[0m Installing git'
 yum install git -y
 
