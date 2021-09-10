@@ -130,5 +130,8 @@ docker run -d \
     --name websocket_editor \
     websocket_editor php /var/www/html/bin/console app:start-websocket
 
+echo -e '\033[42m[Run->]\033[0m Migrations'
+docker exec php_editor bin/console d:m:m -n
+
 echo -e '\033[42m[Run->]\033[0m Generate JWT sertificates'
 docker exec php_editor bin/console lexik:jwt:generate-keypair
