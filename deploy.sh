@@ -23,7 +23,7 @@ MESSENGER_TRANSPORT_DSN=${MESSENGER_URL}?access_key=${MESSENGER_ACCESS_KEY}"&"se
 DATABASE_URL=mysql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}
 MAILER_DSN=smtp://${SMTP_USER}:${SMTP_PASSWORD}@${SMTP_HOST}
 WEBSOCKET_URL=wss://${HOST_API}/ws
-RESET_PASSWORD_URL=https://${HOST}/reset-password/
+RESET_PASSWORD_URL=https://${HOST}/cabinet/reset-password/
 
 WORKDIR=/home/ec2-user
 
