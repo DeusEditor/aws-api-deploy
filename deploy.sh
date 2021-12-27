@@ -19,6 +19,7 @@ AWS_SECRET_ACCESS_KEY=$(aws ssm get-parameters --name _AWS_SECRET_ACCESS_KEY --r
 WEBSOCKET_PORT=$(aws ssm get-parameters --name WEBSOCKET_PORT --region eu-central-1 --output text --query Parameters[].Value)
 WEBSOCKET_PASS=$(aws ssm get-parameters --name FFMPEG_SERVER_IP --region eu-central-1 --output text --query Parameters[].Value)
 S3_BUCKET_NAME=$(aws ssm get-parameters --name S3_BUCKET_NAME --region eu-central-1 --output text --query Parameters[].Value)
+FONDY_SECRET_KEY=$(aws ssm get-parameters --name FONDY_SECRET_KEY --region eu-central-1 --with-decryption --output text --query Parameters[].Value)
 
 MESSENGER_TRANSPORT_DSN=${MESSENGER_URL}?access_key=${MESSENGER_ACCESS_KEY}"&"secret_key=${MESSENGER_SECRET_KEY}
 DATABASE_URL=mysql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}
@@ -84,6 +85,7 @@ docker run -d \
     --env AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
     --env AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
     --env AWS_S3_BUCKET_NAME=$S3_BUCKET_NAME \
+    --env FONDY_SECRET_KEY=$FONDY_SECRET_KEY \
     --name php_editor php_editor
 
 echo -e '\033[42m[Run->]\033[0m Run nginx container'
