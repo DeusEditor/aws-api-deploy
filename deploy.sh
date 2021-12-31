@@ -96,3 +96,9 @@ docker exec php_editor bin/console d:m:m -n
 
 echo -e '\033[42m[Run->]\033[0m Generate JWT sertificates'
 docker exec php_editor bin/console lexik:jwt:generate-keypair
+
+echo -e '\033[42m[Run->]\033[0m Setup cron job'
+crontab -l > mycron
+echo "0 2 * * * docker exec php_editor php bin/console app:check-subscriptions" >> mycron
+crontab mycron
+rm mycron
