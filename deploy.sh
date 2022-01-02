@@ -98,7 +98,7 @@ echo -e '\033[42m[Run->]\033[0m Generate JWT sertificates'
 docker exec php_editor bin/console lexik:jwt:generate-keypair
 
 echo -e '\033[42m[Run->]\033[0m Setup cron job'
-crontab -l > mycron
+crontab -u ec2-user -l > mycron
 echo "0 2 * * * docker exec php_editor php bin/console app:check-subscriptions" >> mycron
-crontab mycron
+crontab -u ec2-user mycron
 rm mycron
