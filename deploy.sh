@@ -55,7 +55,7 @@ echo -e '\033[42m[Run->]\033[0m Clone api'
 git clone git@github.com:DeusEditor/api.git
 
 echo -e '\033[42m[Run->]\033[0m Installing app dependencies'
-docker run --rm -v --interactive --tty --env DATABASE_URL --volume $WORKDIR/api:/app composer:2 install --ignore-platform-reqs
+docker run --rm -v --interactive --tty --env DATABASE_URL --volume $WORKDIR/api:/app composer:2 install --ignore-platform-reqs --no-dev
 
 echo -e '\033[42m[Run->]\033[0m Building php image'
 docker build -f $WORKDIR/docker-api/php/Dockerfile -t php_editor .
