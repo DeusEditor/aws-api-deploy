@@ -22,6 +22,8 @@ S3_BUCKET_NAME=$(aws ssm get-parameters --name S3_BUCKET_NAME --region eu-centra
 FONDY_SECRET_KEY=$(aws ssm get-parameters --name FONDY_SECRET_KEY --region eu-central-1 --with-decryption --output text --query Parameters[].Value)
 UNSPLASH_ACCESS_KEY=$(aws ssm get-parameters --name UNSPLASH_ACCESS_KEY --region eu-central-1 --output text --query Parameters[].Value)
 UNSPLASH_SECRET_KEY=$(aws ssm get-parameters --name UNSPLASH_SECRET_KEY --region eu-central-1 --with-decryption --output text --query Parameters[].Value)
+PIXABAY_API_KEY=$(aws ssm get-parameters --name PIXABAY_API_KEY --region eu-central-1 --with-decryption --output text --query Parameters[].Value)
+PEXELS_API_KEY=$(aws ssm get-parameters --name PEXELS_API_KEY --region eu-central-1 --with-decryption --output text --query Parameters[].Value)
 
 MESSENGER_TRANSPORT_DSN=${MESSENGER_URL}?access_key=${MESSENGER_ACCESS_KEY}"&"secret_key=${MESSENGER_SECRET_KEY}
 DATABASE_URL=mysql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}
@@ -90,6 +92,8 @@ docker run -d \
     --env FONDY_SECRET_KEY=$FONDY_SECRET_KEY \
     --env UNSPLASH_ACCESS_KEY=$UNSPLASH_ACCESS_KEY \
     --env UNSPLASH_SECRET_KEY=$UNSPLASH_SECRET_KEY \
+    --env PIXABAY_API_KEY=$PIXABAY_API_KEY \
+    --env PEXELS_API_KEY=$PEXELS_API_KEY \
     --name php_editor php_editor
 
 echo -e '\033[42m[Run->]\033[0m Run nginx container'
